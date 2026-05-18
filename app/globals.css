@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #0B1D3A; --teal: #00C9A7; --teal-dark: #00A88A; --gold: #F5C542;
+  --bg: #F7F9FC; --card: #FFFFFF; --text: #1A2332; --muted: #6B7A8D; --border: #E2E8F0;
+}
+body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--bg); }
+h1, h2, h3 { font-family: 'Playfair Display', serif; }
+::selection { background: var(--teal); color: white; }
+.gradient-text { background: linear-gradient(135deg, var(--teal), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.card { background: var(--card); border-radius: 16px; border: 1px solid var(--border); padding: 24px; transition: box-shadow 0.3s; }
+.card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 12px; font-weight: 600; font-size: 15px; cursor: pointer; transition: all 0.3s; border: none; font-family: 'DM Sans', sans-serif; }
+.btn-primary { background: var(--teal); color: white; }
+.btn-primary:hover { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 8px 25px rgba(0,201,167,0.3); }
+.btn-outline { background: transparent; color: var(--teal); border: 2px solid var(--teal); }
+.btn-outline:hover { background: rgba(0,201,167,0.08); }
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+.animate-in { animation: fadeUp 0.5s ease forwards; }
