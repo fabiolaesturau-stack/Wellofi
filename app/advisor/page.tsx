@@ -23,21 +23,15 @@ export default function Advisor() {
     setLoading(true);
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          system: "You are a friendly, knowledgeable financial advisor for WelloFI, a multi-agent wealth management platform. You help users with portfolio questions, tax optimization, retirement planning, and general financial advice. Keep responses concise (2-3 paragraphs max), warm, and actionable. Use simple language. You can reference WelloFI's agents: TaxShield (tax optimization), PortfolioSync (portfolio management), EstatePlan (estate planning), RiskGuard (risk management), GoalTracker (goal tracking), and CashFlow (cash management). Never give specific investment recommendations, always note that this is educational, not personalized financial advice.",
-          messages: newMessages.map(m => ({ role: m.role, content: m.content })),
-        }),
+        body: JSON.stringify({ messages: newMessages.map(m => ({ role: m.role, content: m.content })) }),
       });
       const data = await res.json();
-      const reply = data.content?.map((c:any) => c.text || "").join("") || "I'm having trouble connecting right now. Please try again!";
-      setMessages(prev => [...prev, { role: "assistant", content: reply }]);
+      setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
     } catch (e) {
-      setMessages(prev => [...prev, { role: "assistant", content: "Connection issue. Please check your network and try again! 🔄" }]);
+      setMessages(prev => [...prev, { role: "assistant", content: "Connection issue. Please try again! 🔄" }]);
     }
     setLoading(false);
   };

@@ -23,16 +23,20 @@ export default function Simulator() {
 
   const projections = useMemo(() => {
     const data = [];
-    const r = returnRate / 100;
+    // Allocation affects effective return: stocks=high return, bonds=low, alts=medium
+    const effectiveReturn = (allocation.stocks * returnRate * 1.2 + allocation.bonds * returnRate * 0.5 + allocation.alternatives * returnRate * 0.9) / 100;
+    const r = effectiveReturn / 100;
+    // Volatility based on stock allocation (more stocks = wider spread)
+    const vol = 0.3 + (allocation.stocks / 100) * 0.5;
     let conservative = initial, moderate = initial, aggressive = initial;
     for (let y = 0; y <= years; y++) {
       data.push({ year: "Yr " + y, conservative: Math.round(conservative), moderate: Math.round(moderate), aggressive: Math.round(aggressive) });
-      conservative = conservative * (1 + r * 0.6) + monthly * 12;
+      conservative = conservative * (1 + r * (1 - vol)) + monthly * 12;
       moderate = moderate * (1 + r) + monthly * 12;
-      aggressive = aggressive * (1 + r * 1.4) + monthly * 12;
+      aggressive = aggressive * (1 + r * (1 + vol)) + monthly * 12;
     }
     return data;
-  }, [initial, monthly, years, returnRate]);
+  }, [initial, monthly, years, returnRate, allocation]);
 
   const final = projections[projections.length - 1];
   const totalContributed = initial + monthly * 12 * years;
