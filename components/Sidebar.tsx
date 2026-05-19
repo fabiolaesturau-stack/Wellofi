@@ -10,7 +10,9 @@ const nav = [
   { href: "/tax", label: "Tax Center", emoji: "🛡️" },
   { href: "/goals", label: "Goals", emoji: "🎯" },
   { href: "/simulator", label: "Simulator", emoji: "🔮" },
+  { href: "/invest", label: "Invest", emoji: "📈" },
   { href: "/calculator", label: "Tax Calc", emoji: "🧮" },
+  { href: "/taxform", label: "Form 1040", emoji: "🧾" },
   { href: "/advisor", label: "Ask Advisor", emoji: "💬" },
   { href: "/settings", label: "Settings", emoji: "⚙️" },
 ];
